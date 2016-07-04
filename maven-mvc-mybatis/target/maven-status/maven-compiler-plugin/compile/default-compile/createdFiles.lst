@@ -1,0 +1,4 @@
+com\yxm\cms\sys\user\beans\User.class
+com\yxm\cms\sys\user\dao\UserDao.class
+com\yxm\cms\sys\user\service\impl\UserServiceImpl.class
+com\yxm\cms\sys\user\service\UserService.class

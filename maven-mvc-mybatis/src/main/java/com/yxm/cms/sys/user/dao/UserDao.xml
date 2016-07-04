@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.cms.sys.user.dao.UserDao">
+
+	<select id="getAllUsers" resultType="com.yxm.cms.sys.user.beans.User">
+	    select * from user order by id
+	</select>
+	
+ <insert id="insert">
+	   insert into user(name,age) values(#{name},#{age})
+	</insert> 
+</mapper>
