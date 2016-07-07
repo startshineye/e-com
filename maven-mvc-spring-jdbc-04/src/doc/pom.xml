@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ehl</groupId>
+	<version>1.0</version>
+	<artifactId>admin.biyao.com</artifactId>
+	<packaging>war</packaging>
+	<name>admin.biyao.com</name>
+	<description>admin.biyao.com</description>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.15.v20140411</version>
+				<configuration>
+					<scanIntervalSeconds>1</scanIntervalSeconds>
+					<!-- JNDI配置文件 -->
+					<jettyEnvXml>src/main/resources/jetty-env.xml</jettyEnvXml>
+					<!-- 解决jetty启动慢的问题 -->
+					<contextXml>src/main/resources/jetty-context.xml</contextXml>
+					<webApp>
+						<!-- 浏览器访问上下文根 -->
+						<contextPath>/</contextPath>
+					</webApp>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>9090</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+			<!--打包时跳过测试代码 -->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.16</version>
+				<configuration>
+					<skip>true</skip>
+					<!--<forkMode>never</forkMode> -->
+					<argLine>-Dfile.encoding=UTF-8</argLine>
+				</configuration>
+			</plugin>
+			<!--源码为UTF-8编码 -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+		<finalName>admin.biyao.com</finalName>
+	</build>
+	<dependencies>
+		<!-- struts2 -->
+		<!-- <dependency> <groupId>org.apache.struts</groupId> <artifactId>struts2-core</artifactId> <version>2.3.20</version> </dependency> -->
+		<!-- httpunit用于Servlet测试 -->
+		<!-- <dependency> <groupId>httpunit</groupId> <artifactId>httpunit</artifactId> <version>1.7</version> <scope>test</scope> </dependency> -->
+		<!-- httpunit依赖的JS包 -->
+		<!-- <dependency> <groupId>org.eclipse.birt.runtime.3_7_1</groupId> <artifactId>org.mozilla.javascript</artifactId> <version>1.7.2</version> </dependency> -->
+		<!-- Servlet-api使用的jar -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- JSP-api使用的jar -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- JAVA标准标签库(以下两个jar) -->
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- spring相关jar -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-orm</artifactId> <version>${org.springframework.version}</version> </dependency> -->
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-aop</artifactId> <version>${org.springframework.version}</version> </dependency> -->
+		<!-- <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> <version>1.8.4</version> </dependency> -->
+		<!-- <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjtools</artifactId> <version>1.8.4</version> </dependency> -->
+		<!-- <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjweaver</artifactId> <version>1.8.4</version> </dependency> -->
+		<!-- spring动态代理依赖jar包以下四个 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.8.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>1.8.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.4</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<!--SPRING计划任务依赖QUARTZ -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.1.4</version>
+		</dependency>
+		<!-- 日志处理 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.9</version>
+		</dependency>
+		<!-- JUnit是一个Java语言的单元测试框架 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- java时间日期处理框架 -->
+		<!-- <dependency> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> <version>2.0</version> </dependency> -->
+		<!-- AXIS相关 WEBSERVICE -->
+		<!-- <dependency> <groupId>axis</groupId> <artifactId>axis</artifactId> <version>1.4</version> </dependency> -->
+		<!-- AXIS相关 WEBSERVICE -->
+		<!-- ORACLE数据库驱动 -->
+		<!-- <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc14</artifactId> <version>10.2.0.2.0</version> </dependency> -->
+		<!-- MYSQL数据库驱动 -->
+		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> <version>5.1.26</version> </dependency> -->
+		<!-- MICROSOFT SQL SERVER数据库驱动(微软官方)与DBCP2 DBCP都能用，不支持查系统表 -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>sqljdbc4</artifactId>
+			<version>4.0</version>
+		</dependency>
+		<!-- <dependency><groupId>org.apache.commons</groupId><artifactId>commons-dbcp2</artifactId><version>2.0.1</version></dependency> -->
+		<!-- <dependency><groupId>org.apache.commons</groupId><artifactId>commons-pool2</artifactId><version>2.2</version></dependency> -->
+		<!-- MICROSOFT SQL SERVER数据库驱动(第三方) 支持查系统表 -->
+		<dependency>
+			<groupId>net.sourceforge.jtds</groupId>
+			<artifactId>jtds</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!-- DBCP数据库连接池 -->
+		<!-- 开放源代码的JAVA数据库 -->
+		<!-- <dependency> <groupId>org.hsqldb</groupId> <artifactId>hsqldb</artifactId> <version>2.3.2</version> </dependency> -->
+		<!-- PROXOOL数据库连接池 -->
+		<!-- <dependency> <groupId>com.cloudhopper.proxool</groupId> <artifactId>proxool</artifactId> <version>0.9.1</version> </dependency> -->
+		<!--apache公共辅助包括文件上传下载相关等五个) -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.4.1</version>
+		</dependency>
+		<!--com.fasterxml.jackson.core解决springMVC,ajax406错误(以下三个) -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<!--jdom xml解析用 -->
+		<!-- <dependency> <groupId>org.jdom</groupId> <artifactId>jdom</artifactId> <version>2.0.2</version> </dependency> -->
+		<!--dom4j xml解析用 -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!--dom4j 解析用 -->
+		<dependency>
+			<artifactId>jaxen</artifactId>
+			<groupId>jaxen</groupId>
+			<version>1.1.6</version>
+		</dependency>
+		<!--JSON操作相关(net.sf.json) -->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+		<!-- 操作EXCEL相关 -->
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6.12</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.26</version>
+		</dependency>
+		<!-- app推送专用jar 以下4个 -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.45</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+				<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>codegen</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 自定义 -->
+		<dependency>
+			<groupId>com.by</groupId>
+			<artifactId>JavaPNS</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.notnoop.apns</groupId>
+			<artifactId>apns</artifactId>
+			<version>1.0.0.Beta6</version>
+		</dependency>
+		<!-- 自定义 -->
+		<dependency>
+			<groupId>com.by</groupId>
+			<artifactId>jpush-client</artifactId>
+			<version>3.2.3</version>
+		</dependency>
+		<!-- 自定义jar百度ueditor上传图片所依赖jar -->
+		<dependency>
+			<groupId>com.baidu</groupId>
+			<artifactId>ueditor</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+		<!-- redis读写工具 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+	</dependencies>
+	<properties>
+		<org.springframework.version>4.1.6.RELEASE</org.springframework.version>
+		<!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
+	</properties>
+</project>
